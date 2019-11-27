@@ -1,0 +1,609 @@
+---
+- name: set param role_name
+  set_fact:
+    extract_rolename: "{{ outer_item.split('/') | last }}"
+
+- name: check param VAR_OS_extracting_rolename subElement
+  stat:
+    path: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+  delegate_to: localhost
+  become: no
+  register: file_exist
+
+- name: parameter_generate run
+  block:
+  # 1-02  name-resolve設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_name-resolve
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_name-resolve.py"
+      when: extract_rolename == "NEC_RH_name-resolve"
+
+  # 1-03　network_interface設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_network-interface
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_network-interface.py"
+      when: extract_rolename == "NEC_RH_network-interface"
+
+  # 1-04　static-route設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_static-route
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_static-route.py"
+      when: extract_rolename == "NEC_RH_static-route"
+
+  # 1-05　logrotate設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_logrotate
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_logrotate.py"
+      vars:
+        mapping_definition:
+          - src: /file/etc/logrotate.conf
+            type: text
+            params:
+              - variable: "VAR_NEC_RH_logrotate_options/cycle"
+                value_type: "str"
+                regexp: "^(daily|weekly|monthly|yearly)"
+              - variable: "VAR_NEC_RH_logrotate_options/rotate_num"
+                value_type: "str"
+                regexp: "^rotate\\s*(.*)"
+              - variable: "VAR_NEC_RH_logrotate_options/create"
+                value_type: "bool"
+                regexp: "^(#create|create)"
+                value: "{% raw %}{% if VALUE == 'create' %}True{% else %}False{% endif %}{% endraw %}"
+              - variable: "VAR_NEC_RH_logrotate_options/dateext"
+                value_type: "bool"
+                regexp: "^(#dateext|dateext)"
+                value: "{% raw %}{% if VALUE == 'dateext' %}True{% else %}False{% endif %}{% endraw %}"
+              - variable: "VAR_NEC_RH_logrotate_options/compress"
+                value_type: "bool"
+                regexp: "^(#compress|compress)"
+                value: "{% raw %}{% if VALUE == 'compress' %}True{% else %}False{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_RH_logrotate"
+
+  # 1-06　rsyslog設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_rsyslog
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_rsyslog.py"
+      when: extract_rolename == "NEC_RH_rsyslog"
+
+  # 1-07　sshd設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_sshd
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_sshd.py"
+      when: extract_rolename == "NEC_RH_sshd"
+
+  # 1-08　snmpd設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_snmpd
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_snmpd.py"
+      when: extract_rolename == "NEC_RH_snmpd"
+
+  # 1-09　domain設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_domain
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_domain.py"
+      when: extract_rolename == "NEC_RH_domain"
+
+  # 1-10　grub2設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_grub2
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_grub2.py"
+      when: extract_rolename == "NEC_RH_grub2"
+
+  # 1-11　kdump設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_kdump
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_kdump.py"
+      vars:
+        mapping_definition:
+          - src: /file/etc/default/grub
+            type: text
+            params:
+              - variable: "VAR_NEC_RH_kdump_grub_crashkernel"
+                value_type: "str"
+                regexp: '.*crashkernel=(\S*)'
+      when: extract_rolename == "NEC_RH_kdump"
+
+  # 1-12　ntp設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_ntp
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_ntp.py"
+      vars:
+        mapping_definition:
+          - src: /file/etc/sysconfig/ntpd
+            type: text
+            # encoding: 'utf-8'
+            # trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_ntp_options/slew"
+                value_type: "bool"
+                regexp: "OPTIONS=(.*)"
+                value: "{% raw %}{% if '-x' in VALUE %}True{% else %}False{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_RH_ntp"
+
+  # 1-14　パスワードポリシー設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_password-rules
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_RH_password-rules.py"
+      vars:
+        mapping_definition:
+          - src: /file/etc/login.defs
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_pw_validity_period/pass_max_days"
+                value_type: "int"
+                regexp: "PASS_MAX_DAYS(.*)"
+                value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+              - variable: "VAR_NEC_RH_pw_validity_period/pass_min_days"
+                value_type: "int"
+                regexp: "PASS_MIN_DAYS(.*)"
+                value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+              - variable: "VAR_NEC_RH_pw_validity_period/pass_warn_age"
+                value_type: "int"
+                regexp: "PASS_WARN_AGE(.*)"
+                value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+          - src: /command/0/stdout.txt
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_pw_quality_flag"
+                value_type: "str"
+                regexp: "\\s*password\\s+(required|requisite|sufficient|optional)\\s+.*"
+          - src: /command/0/stdout.txt
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_pw_quality_arg2/retry"
+                value_type: "str"
+                regexp: ".*retry=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/minlen"
+                value_type: "str"
+                regexp: ".*minlen=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/difok"
+                value_type: "str"
+                regexp: ".*difok=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/dcredit"
+                value_type: "str"
+                regexp: ".*dcredit=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/ucredit"
+                value_type: "str"
+                regexp: ".*ucredit=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/lcredit"
+                value_type: "str"
+                regexp: ".*lcredit=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/ocredit"
+                value_type: "str"
+                regexp: ".*ocredit=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/minclass"
+                value_type: "str"
+                regexp: ".*minclass=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/maxrepeat"
+                value_type: "str"
+                regexp: ".*maxrepeat=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/maxsequence"
+                value_type: "str"
+                regexp: ".*maxsequence=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/maxclassrepeat"
+                value_type: "str"
+                regexp: ".*maxclassrepeat=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/gecoscheck"
+                value_type: "str"
+                regexp: ".*gecoscheck=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/authtok_type"
+                value_type: "str"
+                regexp: ".*authtok_type=((\".*\")|('.*')|([^\\s]*))[^\\s]*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/dictpath"
+                value_type: "str"
+                regexp: ".*dictpath=((\".*\")|('.*')|([^\\s]*))[^\\s]*"
+              - variable: "VAR_NEC_RH_pw_quality_arg2/badwords"
+                value_type: "str"
+                regexp: ".*badwords=((\".*\")|('.*')|([^\\s]*))[^\\s]*"
+          - src: /command/1/stdout.txt
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_pw_authentication_flag"
+                value_type: "str"
+                regexp: "\\s*password\\s+(required|requisite|sufficient|optional)\\s+.*"
+          - src: /command/1/stdout.txt
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_pw_authentication_arg2/remember"
+                value_type: "str"
+                regexp: ".*remember=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_authentication_arg2/rounds"
+                value_type: "str"
+                regexp: ".*rounds=([0-9]*).*"
+              - variable: "VAR_NEC_RH_pw_authentication_arg2/minlen"
+                value_type: "str"
+                regexp: ".*minlen=([0-9]*).*"
+      when: extract_rolename == "NEC_RH_password-rules"
+
+  # 1-15　言語設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_lang
+      parameter_generate:
+          rolename: "OS/{{ extract_rolename }}"
+          collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+          config: "{{ mapping_definition }}"
+          dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+        mapping_definition:
+          - src: /file/etc/locale.conf
+            type: text
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_lang"
+                value_type: "str"
+                regexp: "LANG=(.*)"
+      when: extract_rolename == "NEC_RH_lang"
+
+  # 1-16　キーボード設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_keyboard
+      parameter_generate:
+          rolename: "OS/{{ extract_rolename }}"
+          collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+          config: "{{ mapping_definition }}"
+          dest: "{{ VAR_OS_extracting_dest }}"
+          specific: "sh {{ role_path }}/files/NEC_RH_keyboard.sh"
+      vars:
+        mapping_definition:
+          - src: /command/results.json
+            type: json
+            #encoding: 'utf-8'
+            #trap_undefined_error: True
+            params:
+              - variable: "VAR_NEC_RH_keyboard/keytable"
+                value_type: "str"
+                path: "$[0]['stdout']"
+                value: "{% raw %}{% if VALUE.find('n/a') != -1 %}us{% else %}{{ VALUE|replace('VC Keymap: ','')|trim() }}{% endif %}{% endraw %}"
+              - variable: "VAR_NEC_RH_keyboard/x11_layout"
+                value_type: "str"
+                path: "$[1]['stdout']"
+                value: "{% raw %}{% if VALUE.find('n/a') != -1 %}us{% else %}{{ VALUE|replace('X11 Layout: ','')|trim() }}{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_RH_keyboard"
+
+  # 1-17　ランレベル設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_RH_runlevel
+      parameter_generate:
+          rolename: "OS/{{ extract_rolename }}"
+          collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+          config: "{{ mapping_definition }}"
+          dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+          mapping_definition:
+            - src: /command/results.json
+              type: json
+              #encoding: 'utf-8'
+              #trap_undefined_error: True
+              params:
+                - variable: "VAR_NEC_RH_runlevel"
+                  value_type: "str"
+                  path: "$[0]['stdout']"
+      when: extract_rolename == "NEC_RH_runlevel"
+
+  # 2-01 組織&所有者設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_WIN_owner-organization
+      parameter_generate:
+          rolename: "OS/{{ extract_rolename }}"
+          collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+          config: "{{ mapping_definition }}"
+          dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+          mapping_definition:
+            - src: /command/2/stdout.txt
+              type: text
+              params:
+                - variable: "VAR_NEC_WIN_owner"
+                  value_type: "str"
+                  regexp: 'RegisteredOwner\s*:(.*)'
+                  value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+                - variable: "VAR_NEC_WIN_organization"
+                  value_type: "str"
+                  regexp: 'RegisteredOrganization\s*:(.*)'
+                  value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_owner-organization"
+
+  # 2-02 windows error report
+    - name: Execute the parameter_generate module for NEC_WIN_error-report
+      parameter_generate:
+          rolename: "OS/{{ extract_rolename }}"
+          collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+          config: "{{ mapping_definition }}"
+          dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+          mapping_definition:
+            - src: /command/results.json
+              type: json
+              params:
+                - variable: "VAR_NEC_WIN_errorreport"
+                  value_type: "str"
+                  path: "$[0]['stdout']"
+                  value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_error-report"
+
+  # 2-03 windows ipv6 disabled
+    - name: Execute the parameter_generate module for NEC_WIN_ipv6-disabled
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_ipv6-disabled.py"
+      when: extract_rolename == "NEC_WIN_ipv6-disabled"
+
+  # 2-04 起動と回復設定Roleのパラメータ生成
+    - name: Execute the parameter_generate module for NEC_WIN_recover-os
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_recover-os.py"
+      vars:
+        mapping_definition:
+          - src: /command/0/stdout.txt
+            type: text
+            params:
+              - variable: "VAR_NEC_WIN_recoveros_timeOut"
+                value_type: "int"
+                regexp: 'timeout\s*(.*)'
+                value: "{% raw %}{{ VALUE|trim()|int }}{% endraw %}"
+          - src: /command/2/stdout.txt
+            type: text
+            params:
+              - variable: "VAR_NEC_WIN_recoveros_autoReboot"
+                value_type: "bool"
+                regexp: '\s*AutoReboot\s*REG_DWORD\s*(.*)'
+                value: "{% raw %}{% if VALUE|trim()|int(base=16) == 1 %}True{% else %}False{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_recover-os"
+
+  # 2-05 DNSサフィックス設定
+    - name: Execute the parameter_generate module for NEC_WIN_dns-suffix
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_dns-suffix.py"
+      vars:
+        mapping_definition:
+          - src: /command/0/stdout.txt
+            type: text
+            params:
+              - variable: "VAR_NEC_WIN_dnsSuffix_primary/NVDomain"
+                value_type: "str"
+                regexp: '\s*NV Domain\s*REG_SZ\s*(.*)'
+                value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+              - variable: "VAR_NEC_WIN_dnsSuffix_primary/syncDomainWithMembership"
+                value_type: "bool"
+                regexp: '\s*SyncDomainWithMembership\s*REG_DWORD\s*(.*)'
+                value: "{% raw %}{% if VALUE|trim()|int(base=16) == 1 %}True{% else %}False{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_dns-suffix"
+
+  # 2-06 Windows Update 設定
+    - name: Execute the parameter_generate module for NEC_WIN_windows-update
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_windows-update.py"
+      when: extract_rolename == "NEC_WIN_windows-update"
+
+  # 2-07 パワーシェル実行ポリシー設定
+    - name: Execute the parameter_generate module for NEC_WIN_powershell-execution-policy
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_powershell-execution-policy.py"
+      when: extract_rolename == "NEC_WIN_powershell-execution-policy"
+
+  # 2-08 名前解決設定
+    - name: Execute the parameter_generate module for NEC_WIN_name-resolve
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_name-resolve.py"
+      when: extract_rolename == "NEC_WIN_name-resolve"
+
+  # 2-9 ネットワークインタフェース設定
+    - name: Execute the parameter_generate module for NEC_WIN_network-interface
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_network-interface.py"
+      when: extract_rolename == "NEC_WIN_network-interface"
+
+  # 2-10 静的ルート設定
+    - name: Execute the parameter_generate module for NEC_WIN_static-route
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_static-route.py"
+      when: extract_rolename == "NEC_WIN_static-route"
+
+  # 2-11 管理者承認モードですべての管理者を実行する
+    - name: Execute the parameter_generate module for NEC_WIN_AdminApprovalMode
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "sh {{ role_path }}/files/NEC_WIN_AdminApprovalMode.sh"
+      vars:
+        mapping_definition:
+          - src: /registry/HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/System/export.reg
+            type: reg
+            params:
+              - variable: "VAR_NEC_WIN_AdminApprovalMode_EnableLUA"
+                keys: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
+                value_name: 'EnableLUA'
+                value_type: "bool"
+                value: "{% raw %}{% if VALUE|trim() == '1' %}True{% else %}False{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_AdminApprovalMode"
+
+  # 2-12 teaming設定
+    - name: Execute the parameter_generate module for NEC_WIN_teaming
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_teaming.py"
+      when: extract_rolename == "NEC_WIN_teaming"
+
+  # 2-13 リモート許可設定
+    - name: Execute the parameter_generate module for NEC_WIN_remote-desktop
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "sh {{ role_path }}/files/NEC_WIN_remote-desktop.sh"
+      vars:
+        mapping_definition:
+          - src: /command/results.json
+            type: json
+            params:
+              - variable: "VAR_NEC_WIN_remote_desktop_state"
+                value_type: "str"
+                path: "$[0]['stdout']"
+                value: "{% raw %}{% if VALUE|trim() == '1' %}enabled{% else %}disabled{% endif %}{% endraw %}"
+              - variable: "VAR_NEC_WIN_remote_desktop_nla"
+                value_type: "str"
+                path: "$[2]['stdout']"
+                value: "{% raw %}{% if VALUE|trim() == '1' %}enabled{% else %}disabled{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_remote-desktop"
+
+  # 2-14 ホストネーム変更
+    - name: Execute the parameter_generate module for NEC_WIN_hostname
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_hostname.py"
+      vars:
+        mapping_definition:
+          - src: /command/results.json
+            type: json
+            params:
+              - variable: "VAR_NEC_WIN_hostname"
+                value_type: "str"
+                path: "$[2]['stdout']"
+                value: "{% raw %}{{ VALUE|trim() }}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_hostname"
+
+  # 2-15 仮想メモリ
+    - name: Execute the parameter_generate module for NEC_WIN_virtual-memory
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_virtual-memory.py"
+      when: extract_rolename == "NEC_WIN_virtual-memory"
+
+  # 2-16 ntp設定
+    - name: Execute the parameter_generate module for NEC_WIN_ntp
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_ntp.py"
+      when: extract_rolename == "NEC_WIN_ntp"
+
+  # 2-17 windows uac
+    - name: Execute the parameter_generate module for NEC_WIN_uac
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_uac.py"
+      when: extract_rolename == "NEC_WIN_uac"
+
+  # 2-18 .NET3.5インストール
+    - name: Execute the parameter_generate module for NEC_WIN_dotNET35-Install
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_dotNET35-Install.py"
+      when: extract_rolename == "NEC_WIN_dotNET35-Install"
+
+  # 2-19 Administrator アカウント名の変更
+    - name: Execute the parameter_generate module for NEC_WIN_AdminName-change
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+        mapping_definition:
+          - src: /command/2/stdout.txt
+            type: ini
+            params:
+              - variable: "VAR_NEC_WIN_AdminName"
+                section: "System Access"
+                inikey: "NewAdministratorName"
+                value_type: "str"
+                value: "{% raw %}{{ VALUE|replace('\"','') }}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_AdminName-change"
+
+  # 2-20 ユーザー権利の割り当てNEC_WIN_user-rights-assign
+    - name: Execute the parameter_generate module for NEC_WIN_user-rights-assign
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+        specific: "python {{ role_path }}/files/NEC_WIN_user-rights-assign.py"
+      when: extract_rolename == "NEC_WIN_user-rights-assign"
+
+  when: file_exist.stat.exists != false

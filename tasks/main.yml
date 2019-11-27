@@ -1,2 +1,29 @@
 ---
-# tasks file for OS_extracting
+  - name: check param VAR_OS_extracting_rolename is none
+    fail:
+      msg: "Parameter VAR_OS_extracting_rolename cannot be NULL."
+    when: "(VAR_OS_extracting_rolename is none) or (VAR_OS_extracting_rolename == '')"
+
+  - name: check param VAR_OS_gathering_dest
+    fail:
+      msg: "Parameter VAR_OS_gathering_dest cannot be NULL."
+    when: "(VAR_OS_gathering_dest is none) or (VAR_OS_gathering_dest == '')"
+
+  - name: check param VAR_OS_extracting_dest
+    fail:
+      msg: "Parameter VAR_OS_extracting_dest cannot be NULL."
+    when: "(VAR_OS_extracting_dest is none) or (VAR_OS_extracting_dest == '')"
+
+  - name: Remove old data
+    file:
+      path: "{{ VAR_OS_extracting_dest }}/{{ inventory_hostname }}/OS"
+      state: absent
+    delegate_to: localhost
+    become: no
+
+# Linux and WindowsのOS設定ロールに対して、パラメータ生成処理を実施する
+  - name: Execute OS's parameter_generate
+    include_tasks: extract.yml
+    with_items: "{{ VAR_OS_extracting_rolename }}"
+    loop_control:
+      loop_var: outer_item

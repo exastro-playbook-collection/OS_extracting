@@ -1,0 +1,1 @@
+echo {\"VAR_NEC_WIN_AdminApprovalMode_reboot\": false}

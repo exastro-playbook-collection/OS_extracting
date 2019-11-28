@@ -43,7 +43,8 @@ if os.path.isfile(filename0):
     alllines = fo.readlines()
     route_dict = {}
     for str_line in alllines:
-        if ('ifIndex' in str_line) or ('----' in str_line) or ('\r\n' == str_line):
+        str_line = str_line.strip()
+        if ('ifIndex' in str_line) or ('----' in str_line) or ( str_line == ''):
             continue
         route_match = re.match('(\S*)\s*(\S*)\s*(\S*)\s*(\S*)\s*(\S*)\W*', str_line)
         if (route_match is not None) and (':' not in route_match.group(2).strip()):

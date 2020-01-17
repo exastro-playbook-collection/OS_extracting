@@ -606,4 +606,24 @@
         specific: "python {{ role_path }}/files/NEC_WIN_user-rights-assign.py"
       when: extract_rolename == "NEC_WIN_user-rights-assign"
 
+  # 2-21 Windows詳細情報(パフォーマンス)設定
+    - name: Execute the parameter_generate module for NEC_WIN_ProcessorScheduling
+      parameter_generate:
+        rolename: "OS/{{ extract_rolename }}"
+        collect_root: "{{ VAR_OS_gathering_dest }}/{{ inventory_hostname }}/OS/{{ extract_rolename }}"
+        config: "{{ mapping_definition }}"
+        dest: "{{ VAR_OS_extracting_dest }}"
+      vars:
+        mapping_definition:
+          - src: /registry/HKLM/SYSTEM/CurrentControlSet/Control/PriorityControl/export.reg
+            type: reg
+            params:
+              - variable: "VAR_NEC_WIN_ProcessorScheduling"
+                keys: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl'
+                value_name: 'Win32PrioritySeparation'
+                value_type: "str"
+                regexp: "(.*)"
+                value: "{% raw %}{% if VALUE|trim() == '2' %}default{% elif VALUE|trim() == '24' %}backgroundservice{% elif VALUE|trim() == '38' %}program{% endif %}{% endraw %}"
+      when: extract_rolename == "NEC_WIN_ProcessorScheduling"
+
   when: file_exist.stat.exists != false

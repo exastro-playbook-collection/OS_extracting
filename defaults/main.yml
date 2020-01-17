@@ -35,5 +35,6 @@ VAR_OS_extracting_rolename:
   - Windows/NEC_WIN_dotNET35-Install
   - Windows/NEC_WIN_AdminName-change
   - Windows/NEC_WIN_user-rights-assign
+  - Windows/NEC_WIN_ProcessorScheduling
 VAR_OS_gathering_dest: "{{ playbook_dir }}/_gathered_data"
 VAR_OS_extracting_dest: "{{ playbook_dir }}/_parameters"

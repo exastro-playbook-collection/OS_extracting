@@ -111,6 +111,7 @@
     | 2-18 | `Windows/NEC_WIN_dotNET35-Install` | 対応済 |
     | 2-19 | `Windows/NEC_WIN_AdminName-change` | 対応済 |
     | 2-20 | `Windows/NEC_WIN_user-rights-assign` | 対応済 |
+    | 2-21 | `Windows/NEC_WIN_ProcessorScheduling` | 対応済 |
 
 
 ## Results

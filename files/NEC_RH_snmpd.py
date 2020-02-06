@@ -179,7 +179,7 @@ if os.path.isfile(filename1):
                 text =' '.join(line.split()).split(' ')
                 test = {}
                 test['behavior'] = text[1]
-                test['community'] = text[2]
+                test['trapcommunity'] = text[2]
                 if not test in trap_manager_list:
                     trap_manager_list.append(test)
 

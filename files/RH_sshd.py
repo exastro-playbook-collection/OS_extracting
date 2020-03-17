@@ -12,7 +12,7 @@ if (len(args) < 2):
 path = args[1]
 
 result = {}
-# result['VAR_NEC_RH_sshd_config'] = None
+# result['VAR_RH_sshd_config'] = None
 # result['become_user'] = 'yes'
 
 config_path = path + '/file/etc/ssh/sshd_config'
@@ -37,6 +37,6 @@ if os.path.isfile(config_path):
             str_line = config_result.readline()
     config_result.close()
 for res in key_table:
-    result.setdefault('VAR_NEC_RH_sshd_config',[]).append(res)
+    result.setdefault('VAR_RH_sshd_config',[]).append(res)
 
 print (json.dumps(result))

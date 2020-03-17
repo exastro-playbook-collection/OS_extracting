@@ -39,8 +39,8 @@ with open(filename) as file_object:
                 key_table.append(server)
 
 
-result.setdefault('VAR_NEC_RH_ntp_clearflag',True)
+result.setdefault('VAR_RH_ntp_clearflag',True)
 for res in key_table:
-    result.setdefault("VAR_NEC_RH_ntp_servers",[]).append(res)
+    result.setdefault("VAR_RH_ntp_servers",[]).append(res)
 print(json.dumps(result))
 

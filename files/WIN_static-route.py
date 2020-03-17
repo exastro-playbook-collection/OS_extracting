@@ -69,5 +69,5 @@ for route in route_list:
     static_route_list.append(static_route_dict)
     static_route_dict = {}
 
-result_dict['VAR_NEC_WIN_static_route'] = static_route_list
+result_dict['VAR_WIN_static_route'] = static_route_list
 print (json.dumps(result_dict))

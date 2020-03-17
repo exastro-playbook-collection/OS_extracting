@@ -46,7 +46,7 @@ if os.path.isfile(filename):
                 result_list.append(dict_tmp)
                 str_localMachine = None
     if len(result_list) > 0:
-        result_dict['VAR_NEC_WIN_executionPolicy'] = result_list
+        result_dict['VAR_WIN_executionPolicy'] = result_list
     fo.close()
 
 print (json.dumps(result_dict))

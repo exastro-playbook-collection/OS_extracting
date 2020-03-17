@@ -51,11 +51,11 @@ if os.path.isfile(filename1):
                 if len(name_server) >= 2:
                     name_server_list.append(name_server[1])
     if name_server_list ==[] and suff_list !=[]:
-        result['VAR_NEC_RH_name_resolve_dns']={'suffix':suff_list}
+        result['VAR_RH_name_resolve_dns']={'suffix':suff_list}
     if name_server_list !=[] and suff_list ==[]:
-        result['VAR_NEC_RH_name_resolve_dns']={'servers':name_server_list}
+        result['VAR_RH_name_resolve_dns']={'servers':name_server_list}
     if name_server_list !=[] and suff_list !=[]:
-        result['VAR_NEC_RH_name_resolve_dns']={'servers':name_server_list,'suffix':suff_list }
+        result['VAR_RH_name_resolve_dns']={'servers':name_server_list,'suffix':suff_list }
 if os.path.isfile(filename2):
     with open(filename2) as file_object:
         lines = file_object.readlines()
@@ -81,11 +81,11 @@ if os.path.isfile(filename2):
         key_table3.append(nsswitch_dict)
 
 for res in key_table1:
-    result.setdefault('VAR_NEC_RH_name_resolve_hosts',[]).append(res)
+    result.setdefault('VAR_RH_name_resolve_hosts',[]).append(res)
 
-result.setdefault('VAR_NEC_RH_name_resolve_ipv6_disabled',False)
+result.setdefault('VAR_RH_name_resolve_ipv6_disabled',False)
 for res in key_table3:
-    result.setdefault('VAR_NEC_RH_name_resolve_nsswitch',[]).append(res)
+    result.setdefault('VAR_RH_name_resolve_nsswitch',[]).append(res)
 print(json.dumps(result))
 
 

@@ -80,6 +80,6 @@ for item in team_name:
     teaming_dict['members'] = members_list
     teaming_list.append(teaming_dict)
 if teaming_list != []:
-    result['VAR_NEC_WIN_teaming'] = teaming_list
+    result['VAR_WIN_teaming'] = teaming_list
 
 print(json.dumps(result))

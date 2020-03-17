@@ -18,7 +18,7 @@ net_frame_core = ''
 net_http_activation = ''
 net_non_http_activ = ''
 result_dict = {}
-result_dict['VAR_NEC_WIN_dotNET35_reboot'] = False
+result_dict['VAR_WIN_dotNET35_reboot'] = False
 if os.path.isfile(filename):
     fo = open(filename)
     alllines = fo.readlines()

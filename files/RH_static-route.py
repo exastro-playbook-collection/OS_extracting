@@ -69,6 +69,6 @@ if os.path.isfile(filename2):
 
 
 for res in key_table:
-    result.setdefault("VAR_NEC_RH_static_route",[]).append(res)
+    result.setdefault("VAR_RH_static_route",[]).append(res)
 
 print(json.dumps(result))

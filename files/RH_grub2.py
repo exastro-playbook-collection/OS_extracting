@@ -12,7 +12,7 @@ if (len(args) < 2):
 path = args[1]
 
 result = {}
-result['VAR_NEC_RH_grub2_reboot'] = False
+result['VAR_RH_grub2_reboot'] = False
 
 option_path = path + '/file/etc/default/grub'
 
@@ -35,5 +35,5 @@ if os.path.isfile(option_path):
             str_line = cmdOption_result.readline()
     cmdOption_result.close()
     if option_result != {}:
-        result['VAR_NEC_RH_grub2_options'] = option_result
+        result['VAR_RH_grub2_options'] = option_result
 print (json.dumps(result))

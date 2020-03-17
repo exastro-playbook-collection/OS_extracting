@@ -16,7 +16,7 @@ filename1 = path + "/command/1/stdout.txt"
 filename2 = path + "/command/2/stdout.txt"
 
 result_dict = {}
-result_dict['VAR_NEC_WIN_ipv6Disabled_reboot'] = False
+result_dict['VAR_WIN_ipv6Disabled_reboot'] = False
 if os.path.isfile(filename):
     fo = open(filename)
     alllines = fo.readlines()
@@ -55,7 +55,7 @@ if os.path.isfile(filename):
                     ipv6Disabled_tunnel['tunnelCp'] = True
                 if list_tmp[7] == '1':
                     ipv6Disabled_tunnel['tunnelIpTls'] = True
-            result_dict['VAR_NEC_WIN_ipv6Disabled_tunnel'] = ipv6Disabled_tunnel
+            result_dict['VAR_WIN_ipv6Disabled_tunnel'] = ipv6Disabled_tunnel
     fo.close()
 
 nicList = []
@@ -86,7 +86,7 @@ if len(nicList) > 0:
                     else:
                         nicDict['state'] = 'disabled'
                     nicInfoList.append(nicDict)
-        result_dict['VAR_NEC_WIN_ipv6Disabled_NICs'] = nicInfoList
+        result_dict['VAR_WIN_ipv6Disabled_NICs'] = nicInfoList
         fo.close()
 
 print (json.dumps(result_dict))

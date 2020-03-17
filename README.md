@@ -76,42 +76,42 @@
 
     | No. | OS設定ロール名 | 備考 |
     | --- | ----------- | ---- |
-    | 1-01 | `RHEL/NEC_RH_domain` | 対応済 |
-    | 1-02 | `RHEL/NEC_RH_grub2` | 対応済 |
-    | 1-03 | `RHEL/NEC_RH_kdump` | 対応済 |
-    | 1-04 | `RHEL/NEC_RH_keyboard` | 対応済 |
-    | 1-05 | `RHEL/NEC_RH_lang` | 対応済 |
-    | 1-06 | `RHEL/NEC_RH_logrotate` | 対応済 |
-    | 1-07 | `RHEL/NEC_RH_name-resolve` | 対応済 |
-    | 1-08 | `RHEL/NEC_RH_network-interface` | 対応済 |
-    | 1-09 | `RHEL/NEC_RH_ntp` | 対応済 |
-    | 1-10 | `RHEL/NEC_RH_password-rules` | 対応済 |
-    | 1-11 | `RHEL/NEC_RH_rsyslog` | 対応済 |
-    | 1-12 | `RHEL/NEC_RH_runlevel` | 対応済 |
-    | 1-13 | `RHEL/NEC_RH_snmpd` | 対応済 |
-    | 1-14 | `RHEL/NEC_RH_sshd` | 対応済 |
-    | 1-15 | `RHEL/NEC_RH_static-route` | 対応済 |
-    | 2-01 | `Windows/NEC_WIN_owner-organization` | 対応済 |
-    | 2-02 | `Windows/NEC_WIN_error-report` | 対応済 |
-    | 2-03 | `Windows/NEC_WIN_ipv6-disabled` | 対応済 |
-    | 2-04 | `Windows/NEC_WIN_recover-os` | 対応済 |
-    | 2-05 | `Windows/NEC_WIN_dns-suffix` | 対応済 |
-    | 2-06 | `Windows/NEC_WIN_windows-update` | 対応済 |
-    | 2-07 | `Windows/NEC_WIN_powershell-execution-policy` | 対応済 |
-    | 2-08 | `Windows/NEC_WIN_name-resolve` | 対応済 |
-    | 2-09 | `Windows/NEC_WIN_network-interface` | 対応済 |
-    | 2-10 | `Windows/NEC_WIN_static-route` | 対応済 |
-    | 2-11 | `Windows/NEC_WIN_AdminApprovalMode` | 対応済 |
-    | 2-12 | `Windows/NEC_WIN_teaming` | 対応済 |
-    | 2-13 | `Windows/NEC_WIN_remote-desktop` | 対応済 |
-    | 2-14 | `Windows/NEC_WIN_hostname` | 対応済 |
-    | 2-15 | `Windows/NEC_WIN_virtual-memory` | 対応済 |
-    | 2-16 | `Windows/NEC_WIN_ntp` | 対応済 |
-    | 2-17 | `Windows/NEC_WIN_uac` | 対応済 |
-    | 2-18 | `Windows/NEC_WIN_dotNET35-Install` | 対応済 |
-    | 2-19 | `Windows/NEC_WIN_AdminName-change` | 対応済 |
-    | 2-20 | `Windows/NEC_WIN_user-rights-assign` | 対応済 |
-    | 2-21 | `Windows/NEC_WIN_ProcessorScheduling` | 対応済 |
+    | 1-01 | `RHEL/RH_domain` | 対応済 |
+    | 1-02 | `RHEL/RH_grub2` | 対応済 |
+    | 1-03 | `RHEL/RH_kdump` | 対応済 |
+    | 1-04 | `RHEL/RH_keyboard` | 対応済 |
+    | 1-05 | `RHEL/RH_lang` | 対応済 |
+    | 1-06 | `RHEL/RH_logrotate` | 対応済 |
+    | 1-07 | `RHEL/RH_name-resolve` | 対応済 |
+    | 1-08 | `RHEL/RH_network-interface` | 対応済 |
+    | 1-09 | `RHEL/RH_ntp` | 対応済 |
+    | 1-10 | `RHEL/RH_password-rules` | 対応済 |
+    | 1-11 | `RHEL/RH_rsyslog` | 対応済 |
+    | 1-12 | `RHEL/RH_runlevel` | 対応済 |
+    | 1-13 | `RHEL/RH_snmpd` | 対応済 |
+    | 1-14 | `RHEL/RH_sshd` | 対応済 |
+    | 1-15 | `RHEL/RH_static-route` | 対応済 |
+    | 2-01 | `Windows/WIN_owner-organization` | 対応済 |
+    | 2-02 | `Windows/WIN_error-report` | 対応済 |
+    | 2-03 | `Windows/WIN_ipv6-disabled` | 対応済 |
+    | 2-04 | `Windows/WIN_recover-os` | 対応済 |
+    | 2-05 | `Windows/WIN_dns-suffix` | 対応済 |
+    | 2-06 | `Windows/WIN_windows-update` | 対応済 |
+    | 2-07 | `Windows/WIN_powershell-execution-policy` | 対応済 |
+    | 2-08 | `Windows/WIN_name-resolve` | 対応済 |
+    | 2-09 | `Windows/WIN_network-interface` | 対応済 |
+    | 2-10 | `Windows/WIN_static-route` | 対応済 |
+    | 2-11 | `Windows/WIN_AdminApprovalMode` | 対応済 |
+    | 2-12 | `Windows/WIN_teaming` | 対応済 |
+    | 2-13 | `Windows/WIN_remote-desktop` | 対応済 |
+    | 2-14 | `Windows/WIN_hostname` | 対応済 |
+    | 2-15 | `Windows/WIN_virtual-memory` | 対応済 |
+    | 2-16 | `Windows/WIN_ntp` | 対応済 |
+    | 2-17 | `Windows/WIN_uac` | 対応済 |
+    | 2-18 | `Windows/WIN_dotNET35-Install` | 対応済 |
+    | 2-19 | `Windows/WIN_AdminName-change` | 対応済 |
+    | 2-20 | `Windows/WIN_user-rights-assign` | 対応済 |
+    | 2-21 | `Windows/WIN_ProcessorScheduling` | 対応済 |
 
 
 ## Results
@@ -215,13 +215,13 @@
     - hosts: LinuxGroup
       become: yes
       roles:
-        - RHEL/NEC_RH_grub2
+        - RHEL/RH_grub2
     ```
 
 - 生成したパラメータを指定してplaybookを実行
 
     ```sh
-    ansible-playbook OS_setup.yml -i hosts --extra-vars="@_parameters/<ホスト名/IP>/OS/NEC_RH_grub2.yml"
+    ansible-playbook OS_setup.yml -i hosts --extra-vars="@_parameters/<ホスト名/IP>/OS/RH_grub2.yml"
     ```
 
 ## Copyright

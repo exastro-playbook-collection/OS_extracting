@@ -69,6 +69,6 @@ for inter_file in interface_list:
     file_object.close()
 
 for res in key_table:
-    result.setdefault("VAR_NEC_RH_network_interface",[]).append(res)
+    result.setdefault("VAR_RH_network_interface",[]).append(res)
 
 print(json.dumps(result))

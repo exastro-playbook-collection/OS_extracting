@@ -11,7 +11,7 @@ path = args[1]
 if(path[-1:] == "/"):
     path = path[:-1]
 result_dict = {}
-result_dict['VAR_NEC_WIN_dnsSuffix_reboot'] = False
+result_dict['VAR_WIN_dnsSuffix_reboot'] = False
 nicList = []
 filename0 = path + '/command/0/stdout.txt'
 filename5 = path + '/command/5/stdout.txt'
@@ -34,7 +34,7 @@ if os.path.isfile(filename0):
             searchList = strList_match.group(1).strip().split(',')
             specific_dict['searchList'] = searchList
     if len(specific_dict) > 0:
-        result_dict['VAR_NEC_WIN_dnsSuffix_specific'] = specific_dict
+        result_dict['VAR_WIN_dnsSuffix_specific'] = specific_dict
     fo.close()
 
 if os.path.isfile(filename5):
@@ -61,6 +61,6 @@ if os.path.isfile(filename6):
                     dnsSuffixNic_dict['suffixName'] = sufficname
                     dnsSuffixNic_list.append(dnsSuffixNic_dict)
     if len(dnsSuffixNic_list) > 0:
-        result_dict['VAR_NEC_WIN_dnsSuffix_nic'] = dnsSuffixNic_list
+        result_dict['VAR_WIN_dnsSuffix_nic'] = dnsSuffixNic_list
     fo.close()
 print (json.dumps(result_dict))

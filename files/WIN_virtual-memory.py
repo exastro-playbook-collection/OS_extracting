@@ -39,7 +39,7 @@ if os.path.isfile(filename):
                         size_dict['max'] = int(text[2])
                         memory_dict['size'] = size_dict
 if memory_dict != {}:
-    result['VAR_NEC_WIN_virtual_memory'] = memory_dict
-result['VAR_NEC_WIN_virtual_memory_reboot']=False
+    result['VAR_WIN_virtual_memory'] = memory_dict
+result['VAR_WIN_virtual_memory_reboot']=False
 print(json.dumps(result))
 

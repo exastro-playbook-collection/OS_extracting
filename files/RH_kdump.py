@@ -12,7 +12,7 @@ if (len(args) < 2):
 path = args[1]
 
 result = {}
-result['VAR_NEC_RH_kdump_reboot'] =  False
+result['VAR_RH_kdump_reboot'] =  False
 cmd_path = path + '/command/2/stdout.txt'
 str_state = ''
 
@@ -23,7 +23,7 @@ if os.path.isfile(cmd_path):
     else:
         str_state = 'started'
     cmd_result.close()
-result['VAR_NEC_RH_kdump'] = {'state': str_state}
+result['VAR_RH_kdump'] = {'state': str_state}
 
 option_path = path + '/file/etc/kdump.conf'
 if os.path.isfile(option_path):
@@ -43,7 +43,7 @@ if os.path.isfile(option_path):
             str_line = cmdOption_result.readline()
     cmdOption_result.close()
     if option_result == {}:
-        result['VAR_NEC_RH_kdump'] = {'state': str_state}
+        result['VAR_RH_kdump'] = {'state': str_state}
     else:
-        result['VAR_NEC_RH_kdump'] = {'state': str_state, 'option': option_result}
+        result['VAR_RH_kdump'] = {'state': str_state, 'option': option_result}
 print (json.dumps(result))

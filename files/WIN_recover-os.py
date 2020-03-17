@@ -46,7 +46,7 @@ if os.path.isfile(filename):
                 defaultOS_displayname = str_match_tmp.group(1).strip()
                 break
     if defaultOS_displayname is not None:
-        result_dict['VAR_NEC_WIN_recoveros_defaultOS_displayname'] = defaultOS_displayname
+        result_dict['VAR_WIN_recoveros_defaultOS_displayname'] = defaultOS_displayname
     fo.close()
 
 if os.path.isfile(filename_tmp):
@@ -62,7 +62,7 @@ if os.path.isfile(filename_tmp):
         recoverTime['enabled'] = False
     recoverTime['timeout'] = int(lines_list[10], 16)
     if len(recoverTime) > 0:
-        result_dict['VAR_NEC_WIN_recoveros_recoverTime'] = recoverTime
+        result_dict['VAR_WIN_recoveros_recoverTime'] = recoverTime
     fo.close()
     os.remove(filename1_1)
 
@@ -111,7 +111,7 @@ if os.path.isfile(filename2):
             else:
                 recoveros_DebugInfo['alwaysKeepMemoryDump'] = False
     if len(recoveros_DebugInfo) > 0:
-        result_dict['VAR_NEC_WIN_recoveros_DebugInfo'] = recoveros_DebugInfo
+        result_dict['VAR_WIN_recoveros_DebugInfo'] = recoveros_DebugInfo
     fo.close()
 
 print (json.dumps(result_dict))

@@ -212,5 +212,5 @@ if not trap_manager_list ==[]:
 
 
 if not key_table=={}:
-    result['VAR_NEC_RH_snmpd_info'] = key_table
+    result['VAR_RH_snmpd_info'] = key_table
 print(json.dumps(result))

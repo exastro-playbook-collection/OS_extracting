@@ -44,7 +44,7 @@ if (not os.path.isdir(filename1)):
 file_list = os.listdir(filename1)
 
 for res in key_table:
-    result.setdefault('VAR_NEC_RH_rsyslog_rules',[]).append(res)
+    result.setdefault('VAR_RH_rsyslog_rules',[]).append(res)
 for fil in file_list:
-    result.setdefault('VAR_NEC_RH_rsyslog_d_files',[]).append(fil)
+    result.setdefault('VAR_RH_rsyslog_d_files',[]).append(fil)
 print(json.dumps(result))

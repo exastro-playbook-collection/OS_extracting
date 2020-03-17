@@ -47,7 +47,7 @@ if domain_name != '' and domain_ip != '' and hostname != '':
     key_table['domainname'] = domain_name
     key_table['user'] = 'update by user'
     key_table['password'] = '*****'
-    result['VAR_NEC_RH_domain'] = key_table
+    result['VAR_RH_domain'] = key_table
     print(json.dumps(result))
 else:
     print(json.dumps(result))

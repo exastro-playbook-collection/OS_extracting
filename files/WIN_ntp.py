@@ -17,7 +17,7 @@ ntp_server=[]
 ntp_data_time_dict={}
 result={}
 ntp_dict={}
-# Generate a file for VAR_NEC_WIN_ntp_DataTime
+# Generate a file for VAR_WIN_ntp_DataTime
 if os.path.isfile(filename):
     with open(filename) as file_object:
         lines = file_object.readlines()
@@ -31,7 +31,7 @@ if os.path.isfile(filename):
 if ntp_server != []:
     ntp_data_time_dict['Servers'] = ntp_server
 
-# Generate a file for VAR_NEC_WIN_ntp
+# Generate a file for VAR_WIN_ntp
 if os.path.isfile(filename1):
     with open(filename1) as file_object:
         lines = file_object.readlines()
@@ -64,7 +64,7 @@ if os.path.isfile(filename2):
                 ntp_dict['EventLogFlags'] = int(event_macth.group(1).strip())
 
 if ntp_dict != {}:
-    result['VAR_NEC_WIN_ntp'] = ntp_dict
-result['VAR_NEC_WIN_ntp_DataTime'] = ntp_data_time_dict
+    result['VAR_WIN_ntp'] = ntp_dict
+result['VAR_WIN_ntp_DataTime'] = ntp_data_time_dict
 print(json.dumps(result))
 

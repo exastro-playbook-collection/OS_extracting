@@ -57,7 +57,7 @@ if os.path.isfile(filename):
     if str_noAutoUpdate is None:
         update_AU['status'] = 'notConfigured'
     if len(update_AU) > 0:
-        result_dict['VAR_NEC_WIN_update_AU'] = update_AU
+        result_dict['VAR_WIN_update_AU'] = update_AU
     fo.close()
 
 if os.path.isfile(filename0):
@@ -94,9 +94,9 @@ if os.path.isfile(filename0):
     else:
         update_target['status'] = 'notConfigured'
     if len(update_WU) > 0:
-        result_dict['VAR_NEC_WIN_update_WU'] = update_WU
+        result_dict['VAR_WIN_update_WU'] = update_WU
     if len(update_target) > 0:
-        result_dict['VAR_NEC_WIN_update_targetGroup'] = update_target
+        result_dict['VAR_WIN_update_targetGroup'] = update_target
     fo.close()
 
 print (json.dumps(result_dict))

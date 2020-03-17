@@ -19,7 +19,7 @@ posd_int = 0
 #EnableLUA
 elua_int = 0
 result_dict = {}
-result_dict['VAR_NEC_WIN_uac_reboot'] = False
+result_dict['VAR_WIN_uac_reboot'] = False
 if os.path.isfile(filename):
     fo = open(filename)
     alllines = fo.readlines()
@@ -53,27 +53,27 @@ if os.path.isfile(filename2):
     fo.close()
 
 if cpba_int ==  1 and posd_int == 1 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'high1'
+    result_dict['VAR_WIN_uac'] = 'high1'
 
 if cpba_int ==  2 and posd_int == 1 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'high2'
+    result_dict['VAR_WIN_uac'] = 'high2'
 
 if cpba_int ==  3 and posd_int == 0 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'high3'
+    result_dict['VAR_WIN_uac'] = 'high3'
 
 if cpba_int ==  4 and posd_int == 0 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'high4'
+    result_dict['VAR_WIN_uac'] = 'high4'
 
 if cpba_int ==  5 and posd_int == 1 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'middle'
+    result_dict['VAR_WIN_uac'] = 'middle'
 
 if cpba_int ==  5 and posd_int == 0 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'low'
+    result_dict['VAR_WIN_uac'] = 'low'
 
 if cpba_int ==  0 and posd_int == 0 and elua_int == 0:
-    result_dict['VAR_NEC_WIN_uac'] = 'disabled'
+    result_dict['VAR_WIN_uac'] = 'disabled'
 
 if cpba_int ==  0 and posd_int == 0 and elua_int == 1:
-    result_dict['VAR_NEC_WIN_uac'] = 'disabled'
+    result_dict['VAR_WIN_uac'] = 'disabled'
 
 print (json.dumps(result_dict))

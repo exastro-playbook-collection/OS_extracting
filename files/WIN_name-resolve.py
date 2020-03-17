@@ -31,7 +31,7 @@ if os.path.isfile(filename):
         if len(resolve_host) > 0:
             resolve_host_list.append(resolve_host)
     if len(resolve_host_list) > 0:
-        result_dict['VAR_NEC_WIN_name_resolve_hosts'] = resolve_host_list
+        result_dict['VAR_WIN_name_resolve_hosts'] = resolve_host_list
 
 nicList = []
 if os.path.isfile(filename0):
@@ -100,5 +100,5 @@ for suffix in suffixDict_list:
             dnsList.append(dns_dict)
 
 if len(dnsList) > 0:
-    result_dict['VAR_NEC_WIN_name_resolve_dns'] = dnsList
+    result_dict['VAR_WIN_name_resolve_dns'] = dnsList
 print (json.dumps(result_dict))

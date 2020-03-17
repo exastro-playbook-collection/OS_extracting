@@ -1,0 +1,1 @@
+echo {\"VAR_RH_keyboard_reboot\": false}

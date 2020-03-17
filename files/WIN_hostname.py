@@ -37,13 +37,13 @@ if machine_state == 'True' :
     test_dict_new['ip']=addr
     test_dict_new['user']='input new domin user name'
     test_dict_new['password']='input new domian user password'
-    result['VAR_NEC_WIN_hostname_domain']=test_dict_new
-    result['VAR_NEC_WIN_hostname_type']= 'domain'
+    result['VAR_WIN_hostname_domain']=test_dict_new
+    result['VAR_WIN_hostname_type']= 'domain'
 else :
-    result['VAR_NEC_WIN_hostname_workgroup']=w_d_name
-    result['VAR_NEC_WIN_hostname_type']= 'workgroup'
+    result['VAR_WIN_hostname_workgroup']=w_d_name
+    result['VAR_WIN_hostname_type']= 'workgroup'
 
-result['VAR_NEC_WIN_hostname_reboot']= False
+result['VAR_WIN_hostname_reboot']= False
 print(json.dumps(result))
 
 

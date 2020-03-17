@@ -173,5 +173,5 @@ for nicStatus in nicStatus_List:
     networkInterface_list.append(networkInterface_dict)
     networkInterface_dict = {}
 
-result_dict['VAR_NEC_WIN_network_interface'] = networkInterface_list
+result_dict['VAR_WIN_network_interface'] = networkInterface_list
 print (json.dumps(result_dict))

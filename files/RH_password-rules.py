@@ -54,7 +54,7 @@ if os.path.isfile(cmd_path0):
     #endif
     cmd_result.close()
     if pw_quality_arg1:
-        result['VAR_NEC_RH_pw_quality_arg1'] = pw_quality_arg1
+        result['VAR_RH_pw_quality_arg1'] = pw_quality_arg1
     #endif
 #endif
 
@@ -139,7 +139,7 @@ if os.path.isfile(cmd_path1):
     #endif
     cmd_result.close()
     if pw_authentication_arg1:
-        result['VAR_NEC_RH_pw_authentication_arg1'] = pw_authentication_arg1
+        result['VAR_RH_pw_authentication_arg1'] = pw_authentication_arg1
     #endif
 #endif
 

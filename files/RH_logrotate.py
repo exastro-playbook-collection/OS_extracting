@@ -12,9 +12,9 @@ if(path[-1:] == "/"):
     path = path[:-1]
 filename = path + "/file/etc/logrotate.d"
 
-dict_list = {'VAR_NEC_RH_logrotate_d_files': None}
+dict_list = {'VAR_RH_logrotate_d_files': None}
 if os.path.isdir(filename):
   file_list = os.listdir(filename)
-  dict_list = {'VAR_NEC_RH_logrotate_d_files': file_list}
+  dict_list = {'VAR_RH_logrotate_d_files': file_list}
 
 print (json.dumps(dict_list))

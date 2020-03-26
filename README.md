@@ -23,8 +23,8 @@
 
 - 管理サーバー（Ansible実行サーバー）
   - OS：RHEL7.x（CentOS7.x）
-  - Ansible：Version 2.7
-  - Python：2.7
+  - Ansible バージョン 2.7 以上 (動作確認バージョン 2.7, 2.9)
+  - Python バージョン 2.x, 3.x  (動作確認バージョン 2.7, 3.6)
 - 対象サーバー
   - OS：RHEL7.x（CentOS7.x）
   - OS：Windows Server 2016
